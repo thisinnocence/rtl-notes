@@ -1,2 +1,3 @@
 # rtl-notes
-soc learn
+
+Chip design learn.
