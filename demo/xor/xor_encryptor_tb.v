@@ -6,7 +6,9 @@
 module xor_encryptor_tb;
 
     // 声明测试激励的信号
-    reg  clk;
+    // 时钟信号 - 测试台输入
+    // 定义为 reg 因为它由 initial/always 块驱动
+    reg  clk;  
     reg  rst_n;
     reg  start;
     reg  [31:0] data_in;
@@ -16,7 +18,7 @@ module xor_encryptor_tb;
 
     // 实例化 DUT
     xor_encryptor dut (
-        .clk(clk),
+        .clk(clk),  // 命名端口连接: 小括号里表示入参是外部的, .clk是module的端口
         .rst_n(rst_n),
         .start(start),
         .data_in(data_in),
@@ -61,7 +63,7 @@ module xor_encryptor_tb;
         $display("Test started.");
 
         // 2. 启动加密操作 (1个时钟周期)
-        @(posedge clk);
+        @(posedge clk);  // 等待时钟上升沿, 确保时序正确
         start = 1'b1;
         $display("Time=%0t, Starting encryption with:", $time);
         $display("Data_in  = 0x%h", data_in);

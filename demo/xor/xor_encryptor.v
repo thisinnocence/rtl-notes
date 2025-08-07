@@ -1,7 +1,7 @@
 // 一个简单的 32 位 XOR 对称加密时序电路模块
 
 module xor_encryptor (
-    input clk,          // 时钟信号
+    input clk,          // 时钟信号, input默认就是wire，省略了 wire 关键字
     input rst_n,        // 同步低电平复位信号 (通常用 rst_n 表示低电平有效)
 
     input start,        // 启动加密操作的信号 (脉冲信号)
@@ -21,11 +21,13 @@ module xor_encryptor (
     // 1: 加密中 (ENCRYPTING)
     // 2: 完成 (DONE)
     reg [1:0] state;
-    localparam IDLE       = 2'b00;
+    localparam IDLE       = 2'b00;  // 局部常量，编译期值确定
     localparam ENCRYPTING = 2'b01;
     localparam DONE       = 2'b10;
 
     // 时序逻辑：在时钟上升沿或复位下降沿触发
+    // 同时判断clk和rst_n的状态，为了异步复位
+    // 注： 只使用时钟（同步复位）必须等待下一个时钟上升沿才能复位, 如果时钟出现故障，电路将无法复位
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin // 异步低电平复位
             current_data <= 32'h0;
@@ -38,7 +40,7 @@ module xor_encryptor (
             case (state)
                 IDLE: begin
                     done <= 1'b0; // 在 IDLE 状态，done 信号为低
-                    if (start) begin // 如果接收到启动信号
+                    if (start) begin // 如果接收到启动信号, 信号为1就是true
                         current_data <= data_in; // 锁存输入数据
                         current_key  <= key_in;   // 锁存输入密钥
                         state <= ENCRYPTING;      // 进入加密状态
