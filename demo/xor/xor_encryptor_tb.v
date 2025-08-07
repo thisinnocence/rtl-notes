@@ -1,9 +1,11 @@
-// xor_encryptor_tb.v (Corrected version 2)
+// testbench
+// 波形： gtkwave waveform.vcd
+
 `timescale 1ns / 1ps
 
 module xor_encryptor_tb;
 
-    // 信号声明和 DUT 实例化 (保持不变)
+    // 声明测试激励的信号
     reg  clk;
     reg  rst_n;
     reg  start;
@@ -12,6 +14,7 @@ module xor_encryptor_tb;
     wire [31:0] data_out;
     wire done;
 
+    // 实例化 DUT
     xor_encryptor dut (
         .clk(clk),
         .rst_n(rst_n),
@@ -22,13 +25,31 @@ module xor_encryptor_tb;
         .done(done)
     );
 
+    // --- 在这里添加波形生成代码 ---
+    initial begin
+        // 1. 设置波形文件的名称和格式
+        //    'waveform.vcd' 是输出文件名，VCD 是常见的波形文件格式
+        $dumpfile("waveform.vcd"); 
+        
+        // 2. 指定要转储的信号
+        //    '0' 表示转储所有信号
+        //    'xor_encryptor_tb' 表示从这个模块开始递归转储
+        $dumpvars(0, xor_encryptor_tb); 
+        
+        $display("Dumping waveform to waveform.vcd...");
+    end
+    // --- 波形生成代码结束 ---
+
+
+    // 时钟生成
     initial begin
         clk = 1'b0;
         forever #5 clk = ~clk;
     end
 
+    // 测试序列
     initial begin
-        // 初始化
+        // 初始化信号
         rst_n = 1'b0;
         start = 1'b0;
         data_in = 32'hdeadbeef;
@@ -49,7 +70,6 @@ module xor_encryptor_tb;
         start = 1'b0;
 
         // 3. 等待状态机从 ENCRYPTING 到 DONE
-        // 在这个时钟周期，done 信号会被置高
         @(posedge clk);
         
         // 4. 验证结果
@@ -97,6 +117,7 @@ module xor_encryptor_tb;
             $display("Test FAILED!");
         end
 
+        // 7. 结束仿真
         #10 $finish;
     end
 
