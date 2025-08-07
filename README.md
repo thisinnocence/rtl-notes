@@ -1,0 +1,2 @@
+# rtl-notes
+soc learn
