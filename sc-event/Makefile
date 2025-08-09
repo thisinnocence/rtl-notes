@@ -1,15 +1,4 @@
 # Makefile for SystemC event demo programs
-#   bear -- make 会生成 compile_commands.json for vscode-clangd
-#
-# Assumes SystemC is installed in ~/github/systemc
-#   SystemC verion: 3.0.1
-#   SystemC build:
-#   cd ~/github/systemc
-#     mkdir build
-#     cd build && ../configure
-#     make -j
-#	  make install
-#     上面编译会在 ~/github/systemc 下生成include和lib
 
 SRCS    = $(wildcard *.cc)
 TARGETS = $(SRCS:.cc=.out)
