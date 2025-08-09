@@ -1,5 +1,4 @@
 // testbench
-// 波形： gtkwave waveform.vcd
 
 `timescale 1ns / 1ps
 
