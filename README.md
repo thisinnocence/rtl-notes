@@ -36,13 +36,30 @@ make install   # 可以安装到当前目录
 
 ### ChiSel
 
+#### 安装 scala 环境
+
 - 安装JDK: `sudo apt install default-jdk`
-- 安装scala: <https://docs.scala-lang.org/getting-started/install-scala.html>
-- 构建SBT(Scala Build Tool)：<https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html>
-- 安装Chisel: <https://www.chisel-lang.org/docs/installation>
+- 安装scala: <https://www.scala-lang.org/download/3.3.6.html>, 直接安装github归档的二进制包即可;
 
-很多 RISC-V 开源项目用，这个适合入门参考:
+    ```bash
+    wget https://github.com/scala/scala3/releases/download/3.3.6/scala3-3.3.6.tar.gz
+    ```
 
-- <https://github.com/schoeberl/chisel-examples>
-- <https://github.com/chipsalliance/chisel-template>
-- <https://github.com/ucb-bar/riscv-mini>
+- 安装SBT: <https://www.chisel-lang.org/docs/installation#linux>, 直接下载tar包解压即可；
+
+上面的 scala 和 sbt 安装完毕后，可以参考伯克利的教学项目测试。
+
+#### 配置阿里maven源
+
+`vim ~/.sbt/repositories`，内容：
+
+```ini
+[repositories]
+  local
+  aliyun: https://maven.aliyun.com/repository/public
+  central: https://repo1.maven.org/maven2/
+```
+
+#### Chisel项目测试
+
+教学仓库： <https://github.com/ucb-bar/chisel-tutorial>
