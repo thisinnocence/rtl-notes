@@ -41,6 +41,14 @@ make install   # 可以安装到当前目录
 - 构建SBT(Scala Build Tool)：<https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html>
 - 安装Chisel: <https://www.chisel-lang.org/docs/installation>
 
+如果在线工具网速慢，可以直接下载二进制安装, 比如安装下面的LTS版本:
+
+<https://www.scala-lang.org/download/3.3.6.html>
+
+```bash
+wget https://github.com/scala/scala3/releases/download/3.3.6/scala3-3.3.6.tar.gz
+```
+
 很多 RISC-V 开源项目用，这个适合入门参考:
 
 - <https://github.com/schoeberl/chisel-examples>
